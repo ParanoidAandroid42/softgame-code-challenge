@@ -1,14 +1,14 @@
 ﻿import { DisplayObject } from "pixi.js";
-import { Button } from "../components/atoms/Button";
-import { ButtonText } from "../components/atoms/ButtonText";
-import { Sprite } from "../components/atoms/Sprite";
-import { Container } from "../components/elements/Container";
-import { Stage } from "../components/elements/Stage";
-import { CardStackStageAssetConfig } from "../configs/CardStackStageAssetConfig";
-import { CardStackStageConfig } from "../configs/CardStackStageConfig";
-import { GenericAssetConfig } from "../configs/GenericAssetConfig";
-import { DisplayManager } from "../managers/DisplayManager";
-import { StageManager } from "../managers/StageManager";
+import { Button } from "atoms/Button";
+import { ButtonText } from "atoms/ButtonText";
+import { Sprite } from "atoms/Sprite";
+import { Container } from "elements/Container";
+import { Stage } from "elements/Stage";
+import { CardStackStageAssetConfig } from "configs/CardStackStageAssetConfig";
+import { CardStackStageConfig } from "configs/CardStackStageConfig";
+import { GenericAssetConfig } from "configs/GenericAssetConfig";
+import { DisplayManager } from "managers/DisplayManager";
+import { StageManager } from "managers/StageManager";
 import { TimelineMax } from "gsap";
 
 export class CardStackStage extends Stage {
@@ -23,7 +23,11 @@ export class CardStackStage extends Stage {
   /** Called when loading the stage */
   public init() {
     // Create the main container
-    this.container = new Container(0, 0, this, 'Container');
+    this.container = new Container({
+      x: 0,
+      y: 0,
+      name: 'CardStackStage',
+    });
     this.restartButton = new ButtonText({
       x: 640,
       y: 654,
@@ -51,15 +55,6 @@ export class CardStackStage extends Stage {
     // Create card assets
     this.createCardAssets(CardStackStageConfig.CardCounter);
     this.initDisplayEvents();
-  }
-
-  public setVisualPortrait(): void {
-    // Set visual elements for portrait orientation if needed -scale or reposition elements-
-    // Currently it is not required according the assignment
-  }
-  public setVisualLandscape(): void {
-    // Set visual elements for landscape orientation if needed -scale or reposition elements-
-    // Currently it is not required according the assignment
   }
 
   /** Handler for card button click */
@@ -109,10 +104,17 @@ export class CardStackStage extends Stage {
       const x = this.displayWidth / 6;
       const y = this.displayHeight / 3 + i * 1.5;
       const rotationAngle = (Math.random() - 0.5) * 0.1;
-      const card = new Sprite(x, y, 196, 281, CardStackStageAssetConfig.CardSprite, this.container);
+      const card = new Sprite({
+        x,
+        y,
+        width:196,
+        height:281,
+        config: CardStackStageAssetConfig.CardSprite,
+        parent: this.container,
+      });
       card.rotation = rotationAngle;
       this.cards.push(card);
-      this.container.addChild(card as unknown as DisplayObject);
+      this.container.addChild(card);
     }
     this.restartButton.isEnabled = true;
     this.playCardAnimations(); // Start animation
@@ -122,5 +124,14 @@ export class CardStackStage extends Stage {
   public dispose() {
     this.animationTimeline.kill();
     this.cards.forEach((card) => card.destroy());
+  }
+
+  public setVisualPortrait(): void {
+    // Set visual elements for portrait orientation if needed -scale or reposition elements-
+    // Currently it is not required according the assignment
+  }
+  public setVisualLandscape(): void {
+    // Set visual elements for landscape orientation if needed -scale or reposition elements-
+    // Currently it is not required according the assignment
   }
 }

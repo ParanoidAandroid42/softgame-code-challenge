@@ -1,12 +1,12 @@
-﻿import { Button } from "../components/atoms/Button";
-import { Container } from "../components/elements/Container";
-import { RichText } from "../components/elements/RichText";
-import { Stage } from "../components/elements/Stage";
-import { GameConfig } from "../configs/GameConfig";
-import { GenericAssetConfig } from "../configs/GenericAssetConfig";
-import { RandomRichTextStageConfig } from "../configs/RandomRichTextStageConfig";
-import { StageManager } from "../managers/StageManager";
-import { TickerManager } from "../managers/TickerManager";
+﻿import { Button } from 'atoms/Button';
+import { Container } from 'elements/Container';
+import { RichText } from 'elements/RichText';
+import { Stage } from 'elements/Stage';
+import { GameConfig } from 'configs/GameConfig';
+import { GenericAssetConfig } from 'configs/GenericAssetConfig';
+import { RandomRichTextStageConfig } from 'configs/RandomRichTextStageConfig';
+import { StageManager } from 'managers/StageManager';
+import { TickerManager } from 'managers/TickerManager';
 import * as PIXI from 'pixi.js';
 
 export class RandomRichTextStage extends Stage {
@@ -16,12 +16,21 @@ export class RandomRichTextStage extends Stage {
 
   /** running when loading stage */
   public init() {
-    this.container = new Container(0, 0, this, 'Container');
+    this.container = new Container({
+      x: 0,
+      y: 0,
+      name: 'RandomRichTextStage',
+      parent: this,
+    });
 
     // Create RichText component
     this.textStyle = { fill: 0xffffff, fontSize: this.generateRandomFontSize() };
     const initialText = this.generateRandomText();
-    this.richText = new RichText(initialText, GameConfig.DisplayResolution.width - 100, this.textStyle);
+    this.richText = new RichText({
+      maxWidth: GameConfig.DisplayResolution.width - 100,
+      text: initialText,
+      textStyle: this.textStyle,
+    });
     this.container.addChild(this.richText);
 
     const callback: Function = StageManager.instance.backMenuButtonUp;

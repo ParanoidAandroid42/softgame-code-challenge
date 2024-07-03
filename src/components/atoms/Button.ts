@@ -1,6 +1,5 @@
-﻿import { IButtonConfig, IButtonFrames } from "../../interfaces/IAssetConfig";
-import { Container } from "../elements/Container";
-import { Sprite, Texture } from "pixi.js";
+﻿import { IButtonConfig, IButtonFrames } from "interfaces/IAssetConfig";
+import { Container } from "elements/Container";
 
 /** Button states enum */
 export enum ButtonStates {
@@ -9,6 +8,7 @@ export enum ButtonStates {
   Out = 'Out',
   Over = 'Over',
 }
+
 export interface ButtonOptions {
   x: number;
   y: number;
@@ -20,7 +20,7 @@ export interface ButtonOptions {
 }
 
 /** Button class */
-export class Button extends Sprite {
+export class Button extends PIXI.Sprite {
   private frames: IButtonFrames;
   private _state: ButtonStates = ButtonStates.Out;
   private _callback: Function | null = null;
@@ -33,7 +33,7 @@ export class Button extends Sprite {
     this.height = options.height;
     this.anchor.set(0.5, 0.5);
     this.position.set(options.x, options.y);
-   // this.buttonMode = true;
+    this.buttonMode = true;
     this.interactive = true;
     this.frames = options.config.frames;
     this._callback = options.callback || null;
@@ -68,7 +68,6 @@ export class Button extends Sprite {
     if (this._callback) {
       this._callback.call(null, this);
     }
-    this.state = ButtonStates.Out;
   }
 
   /**
@@ -90,7 +89,7 @@ export class Button extends Sprite {
    */
   public set state(state: ButtonStates) {
     this._state = state;
-    this.texture = Texture.from(this.frames[state.toLowerCase() as keyof IButtonFrames]);
+    this.texture = PIXI.Texture.from(this.frames[state.toLowerCase() as keyof IButtonFrames]);
   }
 
   public get state() {
@@ -99,7 +98,6 @@ export class Button extends Sprite {
 
   /**
    * Enable or disable the button
-   * @param enable - Enable state
    */
   public set isEnabled(enable: boolean) {
     this._isEnabled = enable;

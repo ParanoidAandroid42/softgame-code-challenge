@@ -1,12 +1,9 @@
-﻿import * as PIXI from 'pixi.js';
-import { Emitter as PIXIParticleEmitter } from 'pixi-particles';
-
-export class Emitter extends PIXIParticleEmitter {
+﻿export class Emitter extends PIXI.particles.Emitter {
   constructor(particleTextures: string | string[], emitterConfig: any, p: PIXI.Container) {
     super(p, particleTextures, emitterConfig);
 
     let elapsed = Date.now();
-    PIXI.Ticker.shared.add(() => {
+    PIXI.ticker.shared.add(() => {
       const now = Date.now();
       const delta = (now - elapsed) * 0.0008;
       this.update(delta);

@@ -1,11 +1,11 @@
-﻿import { ButtonText } from "../components/atoms/ButtonText";
-import { Stage } from "../components/elements/Stage";
-import { StageNames } from "../configs/GameConfig";
-import { MainStageAssetConfig } from "../configs/MainStageAssetConfig";
-import { StageManager } from "../managers/StageManager";
-import { CardStackStage } from "./CardStackStage";
-import { FireParticleStage } from "./FireParticleStage";
-import { RandomRichTextStage } from "./RandomRichTextStage";
+﻿import { ButtonText } from "atoms/ButtonText";
+import { Stage } from "elements/Stage";
+import { StageNames } from "configs/GameConfig";
+import { MainStageAssetConfig } from "configs/MainStageAssetConfig";
+import { StageManager } from "managers/StageManager";
+import { CardStackStage } from "stages/CardStackStage";
+import { FireParticleStage } from "stages/FireParticleStage";
+import { RandomRichTextStage } from "stages/RandomRichTextStage";
 
 export class MainStage extends Stage {
   private stageMap = {

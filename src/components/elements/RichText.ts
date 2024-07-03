@@ -1,15 +1,20 @@
-﻿import * as PIXI from 'pixi.js';
+﻿export interface RichTextOptions {
+  text: string;
+  maxWidth: number;
+  textStyle?: Partial<PIXI.TextStyle>;
+}
+
 export class RichText extends PIXI.Container {
   private _textStyle: Partial<PIXI.TextStyle>;
   private _maxWidth: number;
   private _currentText: string;
 
-  constructor(text: string, maxWidth: number, textStyle: Partial<PIXI.TextStyle> = {}) {
+  constructor(options: RichTextOptions) {
     super();
-    this._textStyle = textStyle;
-    this._maxWidth = maxWidth;
-    this._currentText = text;
-    this.updateText(text);
+    this._textStyle = options.textStyle || {};
+    this._maxWidth = options.maxWidth;
+    this._currentText = options.text;
+    this.updateText(options.text);
   }
 
   /**

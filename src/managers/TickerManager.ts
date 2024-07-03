@@ -1,12 +1,10 @@
-﻿import * as PIXI from 'pixi.js';
-
-/** running like dictionary*/
+﻿/** running like dictionary*/
 interface Tickers<T> {
   [K: string]: T;
 }
 
-export class TickerManager extends PIXI.Ticker {
-  private tickers: Tickers<PIXI.Ticker> = {};
+export class TickerManager extends PIXI.ticker.Ticker {
+  private tickers: Tickers<PIXI.ticker.Ticker> = {};
   private gTime!: number;
   public static instance: TickerManager;
 
@@ -25,7 +23,7 @@ export class TickerManager extends PIXI.Ticker {
    */
   public addTimeout(key: string, duration: number, callback: Function, loop: boolean) {
     if (!this.tickers[key]) {
-      let ticker = new PIXI.Ticker();
+      let ticker = new PIXI.ticker.Ticker();
       ticker.autoStart = true;
       this.tickers[key] = ticker;
       this.gTime = new Date().getTime();
@@ -51,7 +49,7 @@ export class TickerManager extends PIXI.Ticker {
     if (loop) {
       this.gTime = new Date().getTime();
     } else {
-      this.tickers[key].remove(this.addLoop.bind(this, key, duration, callback, loop));
+      this.tickers[key].remove(this.addLoop.bind(this));
     }
   }
 

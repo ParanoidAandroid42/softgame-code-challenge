@@ -1,9 +1,9 @@
-﻿import { StatElement } from "../components/atoms/StatElement";
-import { GameConfig, StageNames } from "../configs/GameConfig";
-import { DisplayManager } from "../managers/DisplayManager";
-import { StageManager } from "../managers/StageManager";
-import { TickerManager } from "../managers/TickerManager";
-import { MainStage } from "../stages/MainStage";
+﻿import { StatElement } from "atoms/StatElement";
+import { GameConfig, StageNames } from "configs/GameConfig";
+import { DisplayManager } from "managers/DisplayManager";
+import { StageManager } from "managers/StageManager";
+import { TickerManager } from "managers/TickerManager";
+import { MainStage } from "stages/MainStage";
 
 export class GameController {
   private displayManager: DisplayManager;

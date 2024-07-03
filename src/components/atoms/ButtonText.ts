@@ -1,21 +1,27 @@
-﻿import { ITextConfig } from "../../interfaces/IAssetConfig";
-import { Button, ButtonOptions } from "./Button";
-import { Text } from "./Text";
+﻿import { ITextConfig } from "interfaces/IAssetConfig";
+import { Button, ButtonOptions } from "atoms/Button";
+import { Text } from "atoms/Text";
 
 export interface ButtonTextOptions extends ButtonOptions {
   textConfig: ITextConfig;
 }
 
 export class ButtonText extends Button {
-  private _text: Text;
+  private text: Text;
 
   constructor(options: ButtonTextOptions) {
     super(options);
-    this._text = new Text(0, 0, options.textConfig, this);
+    this.text = new Text({
+      x: 0,
+      y: 0,
+      config: options.textConfig,
+      parent: this,
+    });
+    
     if (options.config.name) this.name = options.config.name;
   }
 
   public get textAsset() {
-    return this._text;
+    return this.text;
   }
 }

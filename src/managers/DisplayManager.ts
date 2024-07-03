@@ -1,8 +1,7 @@
-﻿import { Orientation } from "../configs/GameConfig";
-import * as PIXI from 'pixi.js';
+﻿import { Orientation } from "configs/GameConfig";
 
 export class DisplayManager extends PIXI.utils.EventEmitter {
-  private renderer!: PIXI.Renderer;
+  private renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
   public static instance: DisplayManager;
   private rendererContainer!: PIXI.Container;
   private currentOrientation!: Orientation;
@@ -41,7 +40,7 @@ export class DisplayManager extends PIXI.utils.EventEmitter {
     // Add child app.view to document.body
     document.body.appendChild(app.view as HTMLCanvasElement);
     this.rendererContainer = app.stage;
-    this.renderer = app.renderer as PIXI.Renderer;
+    this.renderer = app.renderer;
     this.width = w;
     this.height = h;
     this.scaleFactor = 1;
@@ -121,7 +120,7 @@ export class DisplayManager extends PIXI.utils.EventEmitter {
     }
   }
 
-  public getRenderer(): PIXI.Renderer {
+  public getRenderer(): PIXI.WebGLRenderer | PIXI.CanvasRenderer {
     return this.renderer;
   }
 

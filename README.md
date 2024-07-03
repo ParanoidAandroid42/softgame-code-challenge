@@ -40,8 +40,8 @@ To run the project locally, use the following command:
 
 ## Built With
 - TypeScript
-- PixiJS
+- Pixi.js
 - Vite
 
 ## Demo
-For a quick overview, check out the demo video [here](https://paranoidaandroid42.github.io/SimpleTaskProject/) 
+For a quick overview, check out the demo link [here](https://paranoidaandroid42.github.io/softgame-code-challenge/) 

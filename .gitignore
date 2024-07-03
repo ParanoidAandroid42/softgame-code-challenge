@@ -11,6 +11,7 @@ pmpm-lock.yaml
 .env
 .env.local
 .env.*.local
+dist
 
 # Editor directories and files
 .idea

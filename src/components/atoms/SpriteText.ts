@@ -1,27 +1,36 @@
-﻿import { ISpriteTextConfig } from "../../interfaces/IAssetConfig";
-import { Sprite } from "./Sprite";
-import * as PIXI from 'pixi.js';
-import { Text } from "./Text";
+﻿import { ISpriteTextConfig } from "interfaces/IAssetConfig";
+import { Sprite } from "atoms/Sprite";
+import { Text } from "atoms/Text";
 
-  export class SpriteText extends Sprite {
-    private _text: PIXI.Text;
+interface SpriteTextOptions {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  config: ISpriteTextConfig;
+  parent?: PIXI.Container;
+}
 
-    /**
-     * running when loading class
-     * @param x - position x
-     * @param y - position y
-     * @param w - width
-     * @param h - height
-     * @param c - spritetext config
-     * @param p - parent
-     */
-    constructor(x: number, y: number, w: number, h: number, c: ISpriteTextConfig, p?: PIXI.Container) {
-      super(x, y, w, h, c.sConfig, p);
-      this._text = new Text(0, 0, c.tConfig, this);
-      if (c.name) this.name = c.name;
-    }
+export class SpriteText extends Sprite {
+  private _text: PIXI.Text;
 
-    public get textAsset() {
-      return this._text;
-    }
+  /**
+   * running when loading class
+   * @param options - spritetext options
+   */
+  constructor(options: SpriteTextOptions) {
+    const { x, y, width, height, config, parent } = options;
+    super({ x, y, width, height, config: config.sConfig, parent });
+    this._text = new Text({
+      x: 0,
+      y: 0,
+      config: config.tConfig,
+      parent: this,
+    });
+    if (config.name) this.name = config.name;
   }
+
+  public get textAsset() {
+    return this._text;
+  }
+}

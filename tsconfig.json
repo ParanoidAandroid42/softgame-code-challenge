@@ -1,19 +1,25 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "useDefineForClassFields": true,
-        "module": "ESNext",
-        "lib": ["ESNext", "DOM"],
-        "moduleResolution": "Node",
-        "strict": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noEmit": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "skipLibCheck": true
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "paths": {
+      "src*": ["./src/*"],
+      "interfaces/*": ["./src/interfaces/*"],
+      "elements/*": ["./src/components/elements/*"],
+      "atoms/*": ["./src/components/atoms/*"],
+      "configs/*": ["./src/configs/*"],
+      "controllers/*": ["./src/controllers/*"],
+      "managers/*": ["./src/managers/*"],
+      "stages/*": ["./src/stages/*"]
     },
-    "include": ["src"]
+    "lib": ["esnext", "dom"]
+  }
 }

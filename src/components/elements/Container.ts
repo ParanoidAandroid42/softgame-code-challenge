@@ -1,16 +1,21 @@
-﻿import * as PIXI from 'pixi.js';
+﻿export interface ContainerOptions {
+  x?: number;
+  y?: number;
+  parent?: PIXI.Container;
+  name?: string;
+}
 
 export class Container extends PIXI.Container {
-  constructor(x?: number, y?: number, p?: Container, n?: string) {
+  constructor(options: ContainerOptions = {}) {
     super();
-    if (n) this.name = n;
-    if (p) p.addChild(this);
-    if (x) this.position.x = x;
-    if (y) this.position.y = y;
+    if (options.name) this.name = options.name;
+    if (options.parent) options.parent.addChild(this);
+    if (options.x !== undefined) this.position.x = options.x;
+    if (options.y !== undefined) this.position.y = options.y;
   }
 
   /**
-    Container's children sorth. (change z index)
+    Container's children sort. (change z index)
     */
   public sortChildren(): void {
     this.children.sort(function (a: any, b: any) {

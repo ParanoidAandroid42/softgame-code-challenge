@@ -1,4 +1,4 @@
-import { ISpriteConfig, IButtonConfig, ITextConfig, IButtonTextConfig } from "../interfaces/IAssetConfig";
+import { ISpriteConfig, IButtonConfig, ITextConfig, IButtonTextConfig } from "interfaces/IAssetConfig";
 
   export class CardStackStageAssetConfig {
     /** card sprite's config */
@@ -30,14 +30,14 @@ import { ISpriteConfig, IButtonConfig, ITextConfig, IButtonTextConfig } from "..
     /** restart text's config*/
     static RestartText: ITextConfig = {
       text: 'Restart',
-      textStyle: CardStackStageAssetConfig.CardStackGeneralTextStyle,
+      textStyle: CardStackStageAssetConfig.CardStackGeneralTextStyle as PIXI.TextStyle,
       name: 'Restart Text',
     };
 
     /** play text's config */
     static PlayText: ITextConfig = {
       text: 'Play',
-      textStyle: CardStackStageAssetConfig.CardStackGeneralTextStyle,
+      textStyle: CardStackStageAssetConfig.CardStackGeneralTextStyle as PIXI.TextStyle,
       name: 'Play Text',
     };
 

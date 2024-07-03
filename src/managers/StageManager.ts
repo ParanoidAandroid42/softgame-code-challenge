@@ -1,7 +1,8 @@
-﻿import { Container } from "../components/elements/Container";
-import { Stage } from "../components/elements/Stage";
-import { StageNames } from "../configs/GameConfig";
-import { MainStage } from "../stages/MainStage";
+﻿import { Container } from "elements/Container";
+import { Stage } from "elements/Stage";
+import { StageNames } from "configs/GameConfig";
+import { MainStage } from "stages/MainStage";
+import * as PIXI from 'pixi.js';
 
   /** running like dictionary*/
   interface StageCore<T> {
@@ -21,7 +22,12 @@ import { MainStage } from "../stages/MainStage";
      */
     constructor(x: number, y: number, p: PIXI.Container) {
       StageManager.instance = this;
-      this.stageContainer = new Container(x, y, p, 'StageContainer');
+      this.stageContainer = new Container({
+        x: x,
+        y: y,
+        parent: p,
+        name: 'StageContainer'
+      });
     }
 
     /** creted stage if the stage was not created before.*/

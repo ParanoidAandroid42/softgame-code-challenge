@@ -1,27 +1,19 @@
 {
-  "name": "simple-task-project",
-  "version": "1.0.0",
+  "name": "softgame-code-challange",
   "description": "Simple Code Challenge for SoftGames Company",
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "prettier": "prettier --write './src/**/*.{ts,js}'",
+    "prettier": "prettier --write 'src/**/*.{ts,js}'",
     "lint": "eslint . --ext .js,.ts",
-    "start": "vite --open --host",
+    "dev": "vite --open --host",
     "build": "vite build"
   },
   "author": "Asli Tuzcuoglu",
   "license": "ISC",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
     "eslint": "^8.32.0",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
     "gsap": "^3.12.5",
-    "lite-server": "^2.6.1",
-    "pixi-filters": "^5.3.0",
-    "pixi-particles": "^4.3.1",
-    "pixi-stats": "^1.2.2",
     "pixi.js": "^7.4.2",
     "prettier": "^2.5.1",
     "stats.js": "^0.17.0",
@@ -34,7 +26,16 @@
   "devDependencies": {
     "@types/stats.js": "^0.17.3",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1"
+    "eslint-plugin-import": "^2.29.1",
+    "vite-plugin-static-copy": "^1.0.6"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.11"
+  },
+  "pnpm": {
+    "overrides": {
+      "graceful-fs": "^4.2.11"
+    }
   },
   "engines": {
     "npm": ">=8.0.0",

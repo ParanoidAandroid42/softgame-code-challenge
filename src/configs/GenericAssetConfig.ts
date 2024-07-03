@@ -1,4 +1,4 @@
-import { IButtonConfig, ITextConfig } from "../interfaces/IAssetConfig";
+import { IButtonConfig, ITextConfig } from "interfaces/IAssetConfig";
 
 export class GenericAssetConfig {
   /**general button's config*/

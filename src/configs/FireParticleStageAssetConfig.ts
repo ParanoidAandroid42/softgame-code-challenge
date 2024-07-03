@@ -1,4 +1,4 @@
-import { ISpriteConfig } from "../interfaces/IAssetConfig";
+import { ISpriteConfig } from "interfaces/IAssetConfig";
 
 export class FireParticleStageAssetConfig {
   static MAX_PARTICLES = 10;

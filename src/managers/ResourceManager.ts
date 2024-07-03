@@ -1,19 +1,50 @@
-﻿import { GameController } from "../controllers/GameController";
-import * as PIXI from "pixi.js";
+﻿import { GameController } from "controllers/GameController";
 
-export class ResourceManager {
-  constructor() {
-    this.initProperties();
+  export class ResourceManager {
+    private loader!: PIXI.loaders.Loader;
+
+    /**
+     * ResourceManager constructor
+     */
+    constructor() {
+      this.initProperties();
+    }
+
+    /**
+     * ResourceManager manager's init function
+     */
+    private initProperties() {
+      this.loader = new PIXI.loaders.Loader();
+      //created by texture packer
+      this.loader.add('assets/sprites/ui.json');
+      this.loader.add('particle', 'assets/sprites/particle.png');
+      this.loader.load();
+
+      this.loader.onProgress.add(this.onProgress.bind(this));
+      this.loader.onError.add(this.onError.bind(this));
+      this.loader.onLoad.add(this.onLoad.bind(this));
+      this.loader.onComplete.add(this.onComplete.bind(this));
+    }
+
+    /**
+     * Called once per errored file
+     */
+    private onError() {}
+
+    /**
+     * Called once per loaded file
+     */
+    private onLoad() {}
+
+    /**
+     * Called once when the queued resources all load.
+     */
+    private onComplete() {
+      new GameController();
+    }
+
+    /**
+     *Called once per loaded/errored file
+     */
+    private onProgress() {}
   }
-
-  /**
-   * ResourceManager manager's init function
-   */
-  private async initProperties() {
-    // Load assets using PIXI.Assets
-    await PIXI.Assets.load('assets/sprites/ui.json');
-    await PIXI.Assets.load('assets/sprites/particle.png');
-
-    new GameController();
-  }
-}

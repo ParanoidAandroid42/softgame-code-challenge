@@ -23,7 +23,7 @@ export interface IButtonConfig {
 export interface ISpriteConfig {
   /* Sprite's texture path.*/
   frame: string;
-  name?: string;
+  name: string;
 }
 
 /**
@@ -31,7 +31,7 @@ export interface ISpriteConfig {
  */
 export interface ITextConfig {
   text: string;
-  textStyle: PIXI.TextStyleOptions;
+  textStyle: PIXI.TextStyle;
   name?: string;
 }
 

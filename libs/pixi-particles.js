@@ -20,7 +20,7 @@
                 };
             })();
             Object.defineProperty(exports, "__esModule", { value: true });
-            var Particle_1 = _dereq_("./Particle");
+            var Particle_1 = _dereq_("Particle");
             var Texture = PIXI.Texture;
             /**
              * An individual particle image with an animation. Art data passed to the emitter must be
@@ -178,12 +178,12 @@
             }(Particle_1.default));
             exports.default = AnimatedParticle;
 
-        }, { "./Particle": 3 }], 2: [function (_dereq_, module, exports) {
+        }, { "Particle": 3 }], 2: [function (_dereq_, module, exports) {
             "use strict";
             Object.defineProperty(exports, "__esModule", { value: true });
-            var ParticleUtils_1 = _dereq_("./ParticleUtils");
-            var Particle_1 = _dereq_("./Particle");
-            var PropertyNode_1 = _dereq_("./PropertyNode");
+            var ParticleUtils_1 = _dereq_("ParticleUtils");
+            var Particle_1 = _dereq_("Particle");
+            var PropertyNode_1 = _dereq_("PropertyNode");
             var ticker = PIXI.ticker.shared;
             var helperPoint = new PIXI.Point();
             /**
@@ -985,7 +985,7 @@
             }());
             exports.default = Emitter;
 
-        }, { "./Particle": 3, "./ParticleUtils": 4, "./PropertyNode": 7 }], 3: [function (_dereq_, module, exports) {
+        }, { "Particle": 3, "ParticleUtils": 4, "PropertyNode": 7 }], 3: [function (_dereq_, module, exports) {
             "use strict";
             var __extends = (this && this.__extends) || (function () {
                 var extendStatics = Object.setPrototypeOf ||
@@ -998,8 +998,8 @@
                 };
             })();
             Object.defineProperty(exports, "__esModule", { value: true });
-            var ParticleUtils_1 = _dereq_("./ParticleUtils");
-            var PropertyList_1 = _dereq_("./PropertyList");
+            var ParticleUtils_1 = _dereq_("ParticleUtils");
+            var PropertyList_1 = _dereq_("PropertyList");
             var Sprite = PIXI.Sprite;
             /**
              * An individual particle image. You shouldn't have to deal with these.
@@ -1309,11 +1309,11 @@
             }(Sprite));
             exports.default = Particle;
 
-        }, { "./ParticleUtils": 4, "./PropertyList": 6 }], 4: [function (_dereq_, module, exports) {
+        }, { "ParticleUtils": 4, "PropertyList": 6 }], 4: [function (_dereq_, module, exports) {
             "use strict";
             Object.defineProperty(exports, "__esModule", { value: true });
             var BLEND_MODES = PIXI.BLEND_MODES;
-            var PropertyNode_1 = _dereq_("./PropertyNode");
+            var PropertyNode_1 = _dereq_("PropertyNode");
             /**
              * Contains helper functions for particles and emitters to use.
              * @memberof PIXI.particles
@@ -1507,7 +1507,7 @@
             };
             exports.default = ParticleUtils;
 
-        }, { "./PropertyNode": 7 }], 5: [function (_dereq_, module, exports) {
+        }, { "PropertyNode": 7 }], 5: [function (_dereq_, module, exports) {
             "use strict";
             var __extends = (this && this.__extends) || (function () {
                 var extendStatics = Object.setPrototypeOf ||
@@ -1520,8 +1520,8 @@
                 };
             })();
             Object.defineProperty(exports, "__esModule", { value: true });
-            var ParticleUtils_1 = _dereq_("./ParticleUtils");
-            var Particle_1 = _dereq_("./Particle");
+            var ParticleUtils_1 = _dereq_("ParticleUtils");
+            var Particle_1 = _dereq_("Particle");
             /**
              * A helper point for math things.
              * @private
@@ -1701,10 +1701,10 @@
             }(Particle_1.default));
             exports.default = PathParticle;
 
-        }, { "./Particle": 3, "./ParticleUtils": 4 }], 6: [function (_dereq_, module, exports) {
+        }, { "Particle": 3, "ParticleUtils": 4 }], 6: [function (_dereq_, module, exports) {
             "use strict";
             Object.defineProperty(exports, "__esModule", { value: true });
-            var ParticleUtils_1 = _dereq_("./ParticleUtils");
+            var ParticleUtils_1 = _dereq_("ParticleUtils");
             /**
              * Singly linked list container for keeping track of interpolated properties for particles.
              * Each Particle will have one of these for each interpolated property.
@@ -1810,10 +1810,10 @@
                 return ParticleUtils_1.default.combineRGBComponents(curVal.r, curVal.g, curVal.b);
             }
 
-        }, { "./ParticleUtils": 4 }], 7: [function (_dereq_, module, exports) {
+        }, { "ParticleUtils": 4 }], 7: [function (_dereq_, module, exports) {
             "use strict";
             Object.defineProperty(exports, "__esModule", { value: true });
-            var ParticleUtils_1 = _dereq_("./ParticleUtils");
+            var ParticleUtils_1 = _dereq_("ParticleUtils");
             /**
              * A single node in a PropertyList.
              * @memberof PIXI.particles
@@ -1876,21 +1876,21 @@
             }());
             exports.default = PropertyNode;
 
-        }, { "./ParticleUtils": 4 }], 8: [function (_dereq_, module, exports) {
+        }, { "ParticleUtils": 4 }], 8: [function (_dereq_, module, exports) {
             "use strict";
             Object.defineProperty(exports, "__esModule", { value: true });
-            var ParticleUtils_js_1 = _dereq_("./ParticleUtils.js");
+            var ParticleUtils_js_1 = _dereq_("ParticleUtils.js");
             exports.ParticleUtils = ParticleUtils_js_1.default;
-            var Particle_js_1 = _dereq_("./Particle.js");
+            var Particle_js_1 = _dereq_("Particle.js");
             exports.Particle = Particle_js_1.default;
-            var Emitter_js_1 = _dereq_("./Emitter.js");
+            var Emitter_js_1 = _dereq_("Emitter.js");
             exports.Emitter = Emitter_js_1.default;
-            var PathParticle_js_1 = _dereq_("./PathParticle.js");
+            var PathParticle_js_1 = _dereq_("PathParticle.js");
             exports.PathParticle = PathParticle_js_1.default;
-            var AnimatedParticle_js_1 = _dereq_("./AnimatedParticle.js");
+            var AnimatedParticle_js_1 = _dereq_("AnimatedParticle.js");
             exports.AnimatedParticle = AnimatedParticle_js_1.default;
 
-        }, { "./AnimatedParticle.js": 1, "./Emitter.js": 2, "./Particle.js": 3, "./ParticleUtils.js": 4, "./PathParticle.js": 5 }], 9: [function (_dereq_, module, exports) {
+        }, { "AnimatedParticle.js": 1, "Emitter.js": 2, "Particle.js": 3, "ParticleUtils.js": 4, "PathParticle.js": 5 }], 9: [function (_dereq_, module, exports) {
             "use strict";
             Object.defineProperty(exports, "__esModule", { value: true });
             // If we're in the browser make sure PIXI is available
@@ -1902,13 +1902,13 @@
                 PIXI.particles = {};
             }
             // get the library itself
-            var particles = _dereq_("./particles");
+            var particles = _dereq_("particles");
             // insert the library into the particles namespace on PIXI
             for (var prop in particles) {
                 PIXI.particles[prop] = particles[prop];
             }
 
-        }, { "./particles": 8 }]
+        }, { "particles": 8 }]
     }, {}, [9])(9)
 });
 

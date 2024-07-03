@@ -1,31 +1,34 @@
-﻿import { Orientation } from "../../configs/GameConfig";
-import { Container } from "./Container";
-import * as PIXI from 'pixi.js';
+﻿import { Orientation } from "configs/GameConfig";
+import { Container, ContainerOptions } from "elements/Container";
+
+export interface StageOptions extends ContainerOptions {
+  game?: any;
+}
 
 export abstract class Stage extends Container {
   public game: any;
+
   /**
-   * displaymanager constructor
-   * @param {number} x - Stage's positionX
-   * @param {number} y - Stage's positionY
-   * @param {number} n - Stage's name
-   * @param {number} p - Stage's parent
+   * Stage constructor
+   * @param options - Stage options
    */
-  constructor(x?: number, y?: number, p?: PIXI.Container, n?: string) {
-    super(x, y, p, n);
+  constructor(options: StageOptions = {}) {
+    super(options);
+    this.game = options.game;
   }
 
   /**
-   * running when loading stage
+   * Running when loading stage
    * @param args - any arguments
    */
   public abstract init(...args: any[]): void;
 
   /**
-   * running when destroying stage
+   * Running when destroying stage
    */
   public abstract dispose(): void;
-  /*
+
+  /**
    * Method to be implemented for setting visual elements in portrait orientation.
    */
   public abstract setVisualPortrait(): void;

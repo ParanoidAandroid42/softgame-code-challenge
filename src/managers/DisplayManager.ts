@@ -1,4 +1,4 @@
-﻿import { Orientation } from "configs/GameConfig";
+﻿import { GameConfig, Orientation } from 'configs/GameConfig';
 
 export class DisplayManager extends PIXI.utils.EventEmitter {
   private renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
@@ -44,12 +44,11 @@ export class DisplayManager extends PIXI.utils.EventEmitter {
     this.width = w;
     this.height = h;
     this.scaleFactor = 1;
+    this.currentOrientation = Orientation.None;
     // Init event for mobile
     document.body.ontouchend = this.onFullscreenChange.bind(this);
     // Init event for desktop
     document.body.onclick = this.onFullscreenChange.bind(this);
-    this.currentOrientation = Orientation.None;
-    this.onResize();
   }
 
   /**
@@ -67,9 +66,10 @@ export class DisplayManager extends PIXI.utils.EventEmitter {
     const scaleX = window.innerWidth / this.width;
     const scaleY = window.innerHeight / this.height;
     this.scaleFactor = Math.min(scaleX, scaleY);
-
     this.renderer.resize(window.innerWidth, window.innerHeight);
     this.rendererContainer.scale.set(this.scaleFactor);
+    this.rendererContainer.x = (window.innerWidth - this.width * this.scaleFactor) / 2;
+    this.rendererContainer.y = (window.innerHeight - this.height * this.scaleFactor) / 2;
     this.emit('resize', { width: this.width * this.scaleFactor, height: this.height * this.scaleFactor });
     this.setOrientationMode();
   }
@@ -96,6 +96,7 @@ export class DisplayManager extends PIXI.utils.EventEmitter {
   public setCurrentOrientation(value: Orientation) {
     this.currentOrientation = value;
     this.emit('orientationChanged', value);
+    this.onResize();
   }
 
   public onFullscreenChange() {
@@ -105,7 +106,7 @@ export class DisplayManager extends PIXI.utils.EventEmitter {
       webkitRequestFullscreen?: () => Promise<void>;
       msRequestFullscreen?: () => Promise<void>;
     };
-    
+
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) {

@@ -1,6 +1,4 @@
 export class RandomRichTextStageConfig {
-  /**random asset counter for task2 mission */
-  static RandomAssetCounter = 3;
   /**duration of create asset */
   static CreateAssetDuration = 2;
 
@@ -20,11 +18,13 @@ export class RandomRichTextStageConfig {
     'images',
     'fun',
     'text',
-    '[fire/fire02]',
+    '[card]',
     '[fire/fire01]',
     '[fire/fire03]',
-    '[fire/fire04]',
+    '[fire/wood]',
     'more text',
     'random',
+    '[generalbutton_out]',
+    '[home_out]',
   ];
 }

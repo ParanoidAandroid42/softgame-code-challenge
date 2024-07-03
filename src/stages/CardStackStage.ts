@@ -27,6 +27,7 @@ export class CardStackStage extends Stage {
       x: 0,
       y: 0,
       name: 'CardStackStage',
+      parent: this,
     });
     this.restartButton = new ButtonText({
       x: 640,

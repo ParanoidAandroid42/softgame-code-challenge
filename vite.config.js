@@ -7,6 +7,16 @@ export default defineConfig({
     module: 'ESNext',
     outDir: 'dist',
     assetsDir: 'assets',
+    rollupOptions: {
+      external: ['pixi.js', 'pixi-filters', 'pixi-particles'],
+      output: {
+        globals: {
+          'pixi.js': 'PIXI',
+          'pixi-filters': 'PIXI.filters',
+          'pixi-particles': 'PIXI.particles'
+        }
+      }
+    }
   },
   base: '',
   resolve: {
@@ -18,11 +28,11 @@ export default defineConfig({
       configs: path.resolve(__dirname, 'src/configs'),
       controllers: path.resolve(__dirname, 'src/controllers'),
       managers: path.resolve(__dirname, 'src/managers'),
-      stages: path.resolve(__dirname, 'src/stages'),
-    },
+      stages: path.resolve(__dirname, 'src/stages')
+    }
   },
   optimizeDeps: {
-    include: ['pixi.js', 'pixi-particles'],
+    include: ['pixi.js', 'pixi-particles', 'pixi-filters']
   },
   plugins: [
     viteStaticCopy({
@@ -30,7 +40,7 @@ export default defineConfig({
         {
           src: 'assets',
           dest: ''
-        }
+        },
       ]
     })
   ]

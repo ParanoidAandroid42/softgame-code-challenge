@@ -2076,119 +2076,6 @@ declare namespace PIXI {
     ////////////////////////////FILTERS///////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
 
-    export namespace filters {
-        export class FXAAFilter extends Filter<{}> { }
-        export class BlurFilter extends Filter<{}> {
-            constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
-
-            blurXFilter: BlurXFilter;
-            blurYFilter: BlurYFilter;
-            resolution: number;
-            padding: number;
-            passes: number;
-            blur: number;
-            blurX: number;
-            blurY: number;
-            quality: number;
-            blendMode: number;
-        }
-        type BlurXFilterUniforms = {
-            strength: number;
-        };
-        export class BlurXFilter extends Filter<BlurXFilterUniforms> {
-            constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
-
-            protected _quality: number;
-
-            quality: number;
-            passes: number;
-            resolution: number;
-            strength: number;
-            firstRun: boolean;
-            blur: number;
-        }
-        type BlurYFilterUniforms = {
-            strength: number;
-        };
-        export class BlurYFilter extends Filter<BlurYFilterUniforms> {
-            constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
-
-            protected _quality: number;
-
-            quality: number;
-            passes: number;
-            resolution: number;
-            strength: number;
-            firstRun: boolean;
-            blur: number;
-        }
-        type ColorMatrixFilterUniforms = {
-            m: Matrix;
-            uAlpha: number;
-        };
-        export class ColorMatrixFilter extends Filter<ColorMatrixFilterUniforms> {
-            constructor();
-
-            protected _loadMatrix(matrix: number[], multiply?: boolean): void;
-            protected _multiply(out: number[], a: number[], b: number[]): void;
-            protected _colorMatrix(matrix: number[]): void;
-
-            matrix: number[];
-            alpha: number;
-
-            brightness(b: number, multiply?: boolean): void;
-            greyscale(scale: number, multiply?: boolean): void;
-            blackAndWhite(multiply?: boolean): void;
-            hue(rotation: number, multiply?: boolean): void;
-            contrast(amount: number, multiply?: boolean): void;
-            saturate(amount: number, multiply?: boolean): void;
-            desaturate(multiply?: boolean): void;
-            negative(multiply?: boolean): void;
-            sepia(multiply?: boolean): void;
-            technicolor(multiply?: boolean): void;
-            polaroid(multiply?: boolean): void;
-            toBGR(multiply?: boolean): void;
-            kodachrome(multiply?: boolean): void;
-            browni(multiply?: boolean): void;
-            vintage(multiply?: boolean): void;
-            colorTone(desaturation: number, toned: number, lightColor: string, darkColor: string, multiply?: boolean): void;
-            night(intensity: number, multiply?: boolean): void;
-            predator(amount: number, multiply?: boolean): void;
-            lsd(multiply?: boolean): void;
-            reset(): void;
-        }
-        type DisplacementFilterUniforms = {
-            mapSampler: Texture;
-            filterMatrix: Matrix;
-            scale: Point;
-        };
-        export class DisplacementFilter extends Filter<DisplacementFilterUniforms> {
-            constructor(sprite: Sprite, scale?: number);
-
-            scale: Point;
-            map: Texture;
-        }
-        export class AlphaFilter extends Filter<{}> {
-            constructor(alpha?: number);
-
-            alpha: number;
-            glShaderKey: number;
-        }
-
-        // pixi-filters.d.ts todo
-        // https://github.com/pixijs/pixi-filters/
-        type NoiseFilterUniforms = {
-            uNoise: number;
-            uSeed: number;
-        };
-        export class NoiseFilter extends Filter<NoiseFilterUniforms> {
-            constructor(noise?: number, seed?: number);
-
-            noise: number;
-            seed: number;
-        }
-    }
-
     //////////////////////////////////////////////////////////////////////////////
     ////////////////////////////INTERACTION///////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
@@ -3580,17 +3467,6 @@ declare namespace PIXI {
          * @deprecated since version 4.6.0
          */
         export function isSwapWidthHeight(rotation: number): boolean;
-    }
-
-    export namespace filters {
-        /**
-         * @class
-         * @private
-         * @name PIXI.filters.VoidFilter
-         * @see PIXI.filters.AlphaFilter
-         * @deprecated since version 4.5.7
-         */
-        type VoidFilter = filters.AlphaFilter;
     }
 
     export namespace settings {

@@ -4,16 +4,44 @@
   textStyle?: Partial<PIXI.TextStyle>;
 }
 
+/**
+ * RichText class for displaying styled text and inline images within a PIXI.Container.
+ * The text can include inline images using the format '[imageName]'.
+ */
 export class RichText extends PIXI.Container {
-  private _textStyle: Partial<PIXI.TextStyle>;
-  private _maxWidth: number;
-  private _currentText: string;
+  private textStyle: Partial<PIXI.TextStyle>;
+  private maxWidth: number;
+  private currentText: string;
 
+  /**
+   * Creates an instance of RichText.
+   * @param options - Configuration options for the RichText component.
+   *    - text: The initial text content, which can include inline images using the format '[imageName]'.
+   *    - maxWidth: The maximum width of the text container. Text will wrap to new lines if it exceeds this width.
+   *    - textStyle: Optional PIXI.TextStyle configuration for styling the text.
+   *
+   * The RichText component allows for mixing text and images inline. Images are specified using square brackets.
+   *
+   * Usage example:
+   * ```typescript
+   * const richText = new RichText({
+   *   text: "This is a text with an inline image [imageName].",
+   *   maxWidth: 500,
+   *   textStyle: { fill: 0xffffff, fontSize: 24 }
+   * });
+   * ```
+   *
+   * Key considerations:
+   * - Use the format `[imageName]` within the text string to specify where images should appear.
+   * - Ensure that the `imageName` matches a texture key available in the PIXI.Texture cache.
+   * - The `maxWidth` property controls the wrapping of the text and ensures that it does not exceed the specified width.
+   * - The `textStyle` property allows customization of the text appearance using PIXI.TextStyle options.
+   */
   constructor(options: RichTextOptions) {
     super();
-    this._textStyle = options.textStyle || {};
-    this._maxWidth = options.maxWidth;
-    this._currentText = options.text;
+    this.textStyle = options.textStyle || {};
+    this.maxWidth = options.maxWidth;
+    this.currentText = options.text;
     this.updateText(options.text);
   }
 
@@ -22,7 +50,7 @@ export class RichText extends PIXI.Container {
    * @param text A string that can contain [img1], [img2], etc. for images
    */
   public updateText(text: string) {
-    this._currentText = text;
+    this.currentText = text;
     this.removeChildren();
     const elements = this.parseText(text);
     this.buildElements(elements);
@@ -32,8 +60,8 @@ export class RichText extends PIXI.Container {
    * Update text style
    */
   public updateTextStyle(textStyle: Partial<PIXI.TextStyle>) {
-    this._textStyle = { ...this._textStyle, ...textStyle };
-    this.updateText(this._currentText);
+    this.textStyle = { ...this.textStyle, ...textStyle };
+    this.updateText(this.currentText);
   }
 
   /**
@@ -41,12 +69,7 @@ export class RichText extends PIXI.Container {
    */
   private parseText(text: string): string[] {
     const regex = /(\[.*?\])|([^[\]\n]+)|(\n)/g;
-    const list: string[] = [];
-    let match;
-    while ((match = regex.exec(text)) !== null) {
-      list.push(match[0]);
-    }
-    return list;
+    return text.match(regex) || [];
   }
 
   /**
@@ -58,11 +81,11 @@ export class RichText extends PIXI.Container {
     let currentLineHeight = 0;
     let currentLine: PIXI.Container[] = [];
 
-    for (const element of elements) {
+    elements.forEach((element) => {
       const container = this.createElement(element);
 
       // If the element doesn't fit in the current line, move to the next line
-      if (currentPos.x + container.width > this._maxWidth) {
+      if (currentPos.x + container.width > this.maxWidth) {
         if (currentLine.length > 0) {
           this.positionElements(currentLine, currentPos.y);
           currentLine = [];
@@ -79,7 +102,7 @@ export class RichText extends PIXI.Container {
       if (container.height > currentLineHeight) {
         currentLineHeight = container.height;
       }
-    }
+    });
 
     // Position any remaining elements
     if (currentLine.length > 0) {
@@ -95,7 +118,7 @@ export class RichText extends PIXI.Container {
       const imageName = element.substring(1, element.length - 1);
       return new PIXI.Sprite(PIXI.Texture.from(imageName));
     } else {
-      return new PIXI.Text(element, this._textStyle);
+      return new PIXI.Text(element, this.textStyle);
     }
   }
 
@@ -103,16 +126,16 @@ export class RichText extends PIXI.Container {
    * Position elements on the same line at the given y-coordinate
    */
   private positionElements(line: PIXI.Container[], y: number) {
-    for (const element of line) {
+    line.forEach((element) => {
       this.addChild(element);
       element.position.y = y;
-    }
+    });
   }
 
   /**
    * Get the current text of the RichText component
    */
   public getText(): string {
-    return this._currentText;
+    return this.currentText;
   }
 }

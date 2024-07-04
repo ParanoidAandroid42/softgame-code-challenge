@@ -14,6 +14,18 @@ export class RandomRichTextStage extends Stage {
   private richText!: RichText;
   private textStyle!: Partial<PIXI.TextStyle>;
 
+  /**
+   * This class is responsible for initializing and managing the random rich text stage.
+   * The text content and style are updated periodically with random values.
+   *
+   * Key considerations:
+   * - The RichText component's text will be generated randomly based on the `RandomRichTextStageConfig.RandomRichTextOptions`.
+   * - Images can be included in the text using the format `[imageName]`, where `imageName` corresponds to a valid texture.
+   */
+  constructor() {
+    super();
+  }
+
   /** running when loading stage */
   public init() {
     this.container = new Container({
@@ -61,23 +73,24 @@ export class RandomRichTextStage extends Stage {
    * Generate random text with images
    */
   private generateRandomText(): string {
-    const options = RandomRichTextStageConfig.SpecialTextOptions;
-    const size = Math.floor(Math.random() * 10 + 5);
-    let text = '';
-    for (let i = 0; i < size; i++) {
+    const options = RandomRichTextStageConfig.RandomTextElements;
+    const { min, max } = RandomRichTextStageConfig.RandomTextSizeRange;
+    const size = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return Array.from({ length: size }, () => {
       const randomIndex = Math.floor(Math.random() * options.length);
-      text += options[randomIndex] + ' ';
-    }
-    return text.trim();
+      return options[randomIndex];
+    })
+      .join(' ')
+      .trim();
   }
 
   /**
    * Generate random font size
    */
   private generateRandomFontSize(): number {
-    return Math.floor(
-      Math.random() * RandomRichTextStageConfig.RandomRichTextFontSize.max + RandomRichTextStageConfig.RandomRichTextFontSize.min,
-    );
+    const { min, max } = RandomRichTextStageConfig.RandomFontSize;
+    return Math.floor(Math.random() * max + min);
   }
 
   /**

@@ -1,15 +1,17 @@
-﻿import { DisplayObject } from "pixi.js";
-import { Button } from "atoms/Button";
-import { ButtonText } from "atoms/ButtonText";
-import { Sprite } from "atoms/Sprite";
-import { Container } from "elements/Container";
-import { Stage } from "elements/Stage";
-import { CardStackStageAssetConfig } from "configs/CardStackStageAssetConfig";
-import { CardStackStageConfig } from "configs/CardStackStageConfig";
-import { GenericAssetConfig } from "configs/GenericAssetConfig";
-import { DisplayManager } from "managers/DisplayManager";
-import { StageManager } from "managers/StageManager";
-import { TimelineMax } from "gsap";
+﻿import { DisplayObject } from 'pixi.js';
+import { Button } from 'atoms/Button';
+import { ButtonText } from 'atoms/ButtonText';
+import { Sprite } from 'atoms/Sprite';
+import { Container } from 'elements/Container';
+import { Stage } from 'elements/Stage';
+import { CardStackStageAssetConfig } from 'configs/CardStackStageAssetConfig';
+import { CardStackStageConfig } from 'configs/CardStackStageConfig';
+import { GenericAssetConfig } from 'configs/GenericAssetConfig';
+import { DisplayManager } from 'managers/DisplayManager';
+import { StageManager } from 'managers/StageManager';
+import { TimelineMax } from 'gsap';
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+import gsap from 'gsap';
 
 export class CardStackStage extends Stage {
   private container!: Container;
@@ -82,16 +84,26 @@ export class CardStackStage extends Stage {
       const yOffset = i * 1.5;
       const rotationAngle = (Math.random() - 0.5) * 0.2;
 
+      gsap.registerPlugin(MotionPathPlugin);
+
       // Start each card's animation with a staggered delay
       this.animationTimeline.to(
         card,
         CardStackStageConfig.CardAnimationDuration,
         {
-          x: (5 / 6) * this.displayWidth,
-          y: this.displayHeight / 3 + yOffset,
-          rotation: rotationAngle,
+          motionPath: {
+            path: [
+              { x: this.displayWidth / 6, y: this.displayHeight / 3 },
+              { x: (5 / 6) * this.displayWidth - 50, y: this.displayHeight / 3 + yOffset - 30 }, // Intermediate point for curvature
+              { x: (5 / 6) * this.displayWidth, y: this.displayHeight / 3 + yOffset },
+            ],
+            curviness: 1.5, // Increase curviness for a smoother path
+            autoRotate: false, // Disable auto rotation for smoother control
+          },
+          rotation: `+=${rotationAngle / 2}`, // Slight rotation effect during motion
+          ease: 'sine.inOut', // Use a more dramatic easing function
           onStart: () => {
-            this.container.addChild(card as unknown as DisplayObject);
+            this.container.addChild(card);
           },
         },
         i * CardStackStageConfig.CardAnimationDelay,
@@ -108,8 +120,8 @@ export class CardStackStage extends Stage {
       const card = new Sprite({
         x,
         y,
-        width:196,
-        height:281,
+        width: 196,
+        height: 281,
         config: CardStackStageAssetConfig.CardSprite,
         parent: this.container,
       });

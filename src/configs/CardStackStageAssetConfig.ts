@@ -27,11 +27,11 @@ import { ISpriteConfig, IButtonConfig, ITextConfig, IButtonTextConfig } from "in
       name: 'generalButton',
     };
 
-    /** restart text's config*/
-    static RestartText: ITextConfig = {
-      text: 'Restart',
+    /** reset text's config*/
+    static ResetText: ITextConfig = {
+      text: 'Reset',
       textStyle: CardStackStageAssetConfig.CardStackGeneralTextStyle as PIXI.TextStyle,
-      name: 'Restart Text',
+      name: 'Reset Text',
     };
 
     /** play text's config */

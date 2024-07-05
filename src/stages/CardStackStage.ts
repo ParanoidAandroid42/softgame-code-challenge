@@ -19,8 +19,8 @@ export class CardStackStage extends Stage {
   private displayWidth = DisplayManager.instance.getWidth();
   private displayHeight = DisplayManager.instance.getHeight();
   private animationTimeline: TimelineMax = new TimelineMax({ paused: true });
-  private restartButton!: ButtonText;
-  private restart: boolean = false;
+  private resetButton!: ButtonText;
+  private reset: boolean = false;
 
   /** Called when loading the stage */
   public init() {
@@ -31,7 +31,7 @@ export class CardStackStage extends Stage {
       name: 'CardStackStage',
       parent: this,
     });
-    this.restartButton = new ButtonText({
+    this.resetButton = new ButtonText({
       x: 640,
       y: 654,
       width: 200,
@@ -41,7 +41,7 @@ export class CardStackStage extends Stage {
       parent: this.container,
       textConfig: CardStackStageAssetConfig.RestartButton.tConfig,
     });
-    this.restartButton.isEnabled = false;
+    this.resetButton.isEnabled = false;
 
     // Create the menu button
     const callback: Function = StageManager.instance.backMenuButtonUp;
@@ -62,53 +62,57 @@ export class CardStackStage extends Stage {
 
   /** Handler for card button click */
   private cardButtonUp() {
-    this.restart = !this.restart;
+    this.reset = !this.reset;
 
-    if (this.restart) {
-      this.restartButton.textAsset.setTextConfig(CardStackStageAssetConfig.RestartText);
+    if (this.reset) {
+      this.resetButton.textAsset.setTextConfig(CardStackStageAssetConfig.ResetText);
       this.animationTimeline.play();
     } else {
-      this.restartButton.textAsset.setTextConfig(CardStackStageAssetConfig.PlayText);
+      this.resetButton.textAsset.setTextConfig(CardStackStageAssetConfig.PlayText);
       this.animationTimeline.restart();
       this.animationTimeline.paused(true);
+      this.resetCardOrder(); // Ensure correct order on reset
+      this.createCardAnimations(); // Re-animate the cards
     }
   }
 
-  /** Sequentially animates each card with a 1-second delay */
-  private playCardAnimations() {
+  /** Create the card animations */
+  private createCardAnimations() {
     // Clear any previous animations if they exist
     this.animationTimeline.clear();
 
-    for (let i = 0, l = this.cards.length; i < l; i++) {
-      const card = this.cards[l - 1 - i]; // Get card from the end to the start
-      const yOffset = i * 1.5;
-      const rotationAngle = (Math.random() - 0.5) * 0.2;
+    gsap.registerPlugin(MotionPathPlugin);
 
-      gsap.registerPlugin(MotionPathPlugin);
+    this.cards
+      .slice()
+      .reverse()
+      .forEach((card, i) => {
+        const yOffset = i * 1.5;
+        const rotationAngle = (Math.random() - 0.5) * 0.2;
 
-      // Start each card's animation with a staggered delay
-      this.animationTimeline.to(
-        card,
-        CardStackStageConfig.CardAnimationDuration,
-        {
-          motionPath: {
-            path: [
-              { x: this.displayWidth / 6, y: this.displayHeight / 3 },
-              { x: (5 / 6) * this.displayWidth - 50, y: this.displayHeight / 3 + yOffset - 30 }, // Intermediate point for curvature
-              { x: (5 / 6) * this.displayWidth, y: this.displayHeight / 3 + yOffset },
-            ],
-            curviness: 1.5, // Increase curviness for a smoother path
-            autoRotate: false, // Disable auto rotation for smoother control
+        // Start each card's animation with a staggered delay
+        this.animationTimeline.to(
+          card,
+          CardStackStageConfig.CardAnimationDuration,
+          {
+            motionPath: {
+              path: [
+                { x: this.displayWidth / 6, y: this.displayHeight / 3 },
+                { x: (5 / 6) * this.displayWidth - 50, y: this.displayHeight / 3 + yOffset - 30 }, // Intermediate point for curvature
+                { x: (5 / 6) * this.displayWidth, y: this.displayHeight / 3 + yOffset },
+              ],
+              curviness: 1.5, // Increase curviness for a smoother path
+              autoRotate: false, // Disable auto rotation for smoother control
+            },
+            rotation: `+=${rotationAngle / 2}`, // Slight rotation effect during motion
+            ease: 'sine.inOut', // Use a more dramatic easing function
+            onStart: () => {
+              this.container.setChildIndex(card, this.container.children.length - 1); // Move the card to the top
+            },
           },
-          rotation: `+=${rotationAngle / 2}`, // Slight rotation effect during motion
-          ease: 'sine.inOut', // Use a more dramatic easing function
-          onStart: () => {
-            this.container.addChild(card);
-          },
-        },
-        i * CardStackStageConfig.CardAnimationDelay,
-      );
-    }
+          i * CardStackStageConfig.CardAnimationDelay,
+        );
+      });
   }
 
   /** Creates card assets initially */
@@ -129,8 +133,15 @@ export class CardStackStage extends Stage {
       this.cards.push(card);
       this.container.addChild(card);
     }
-    this.restartButton.isEnabled = true;
-    this.playCardAnimations(); // Start animation
+    this.resetButton.isEnabled = true;
+    this.createCardAnimations();
+  }
+
+  /** Ensures correct z-order of cards */
+  private resetCardOrder() {
+    this.cards.forEach((card, index) => {
+      this.container.setChildIndex(card, index);
+    });
   }
 
   /** Called when destroying the stage */

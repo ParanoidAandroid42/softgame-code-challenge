@@ -1,8 +1,5 @@
 lockfileVersion: 5.4
 
-overrides:
-  graceful-fs: ^4.2.11
-
 specifiers:
   '@types/stats.js': ^0.17.3
   eslint: ^8.32.0

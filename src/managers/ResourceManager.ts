@@ -17,7 +17,7 @@
       this.loader = new PIXI.loaders.Loader();
       //created by texture packer
       this.loader.add('assets/sprites/ui.json');
-      this.loader.add('particle', 'assets/sprites/particle.png');
+      this.loader.add('camp_wood', 'assets/sprites/camp_wood.png');
       this.loader.load();
 
       this.loader.onProgress.add(this.onProgress.bind(this));

@@ -4,8 +4,8 @@ export class FireParticleStageAssetConfig {
   static MAX_PARTICLES = 10;
   /**wood sprite's config */
   static WoodSPrite: ISpriteConfig = {
-    frame: 'fire/wood',
-    name: 'wood',
+    frame: 'camp_wood',
+    name: 'camp_wood',
   };
 
   /**Dark Forest background sprite's config */

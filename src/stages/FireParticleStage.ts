@@ -33,7 +33,7 @@ export class FireParticleStage extends Stage {
     // Create the wood sprite
     const woodSprite = new Sprite({
       x: 640,
-      y: 613,
+      y: 590,
       width: 400,
       height: 250,
       config: FireParticleStageAssetConfig.WoodSPrite,
@@ -43,7 +43,7 @@ export class FireParticleStage extends Stage {
     // Create containers for particles
     this.particleContainer = new Container({
       x: 640,
-      y: 610,
+      y: 600,
       parent: this.container,
       name: 'ParticleContainer',
     });

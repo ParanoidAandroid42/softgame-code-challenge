@@ -86,7 +86,7 @@ export class CardStackStage extends Stage {
       .slice()
       .reverse()
       .forEach((card, i) => {
-        const yOffset = i * 1.5;
+        const yOffset = i * 0.3;
         const rotationAngle = (Math.random() - 0.5) * 0.2;
 
         // Start each card's animation with a staggered delay
@@ -96,9 +96,9 @@ export class CardStackStage extends Stage {
           {
             motionPath: {
               path: [
-                { x: this.displayWidth / 6, y: this.displayHeight / 3 },
-                { x: (5 / 6) * this.displayWidth - 50, y: this.displayHeight / 3 + yOffset - 30 }, // Intermediate point for curvature
-                { x: (5 / 6) * this.displayWidth, y: this.displayHeight / 3 + yOffset },
+                { x: this.displayWidth / 6, y: this.displayHeight / 2 },
+                { x: (5 / 6) * this.displayWidth - 50, y: this.displayHeight / 2 + yOffset - 30 }, // Intermediate point for curvature
+                { x: (5 / 6) * this.displayWidth, y: this.displayHeight / 2 + yOffset },
               ],
               curviness: 1.5, // Increase curviness for a smoother path
               autoRotate: false, // Disable auto rotation for smoother control
@@ -118,7 +118,7 @@ export class CardStackStage extends Stage {
   private createCardAssets(totalCards: number) {
     for (let i = 0; i < totalCards; i++) {
       const x = this.displayWidth / 6;
-      const y = this.displayHeight / 3 + i * 1.5;
+      const y = this.displayHeight / 2 + i * 0.3;
       const rotationAngle = (Math.random() - 0.5) * 0.1;
       const card = new Sprite({
         x,

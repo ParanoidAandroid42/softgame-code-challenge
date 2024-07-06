@@ -71,8 +71,7 @@ export class CardStackStage extends Stage {
       this.resetButton.textAsset.setTextConfig(CardStackStageAssetConfig.PlayText);
       this.animationTimeline.restart();
       this.animationTimeline.paused(true);
-      this.resetCardOrder(); // Ensure correct order on reset
-      this.createCardAnimations(); // Re-animate the cards
+      this.resetCardOrder();
     }
   }
 
